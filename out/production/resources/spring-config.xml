@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+    <context:annotation-config/>
+    <context:component-scan base-package="com.demo"/>
+
+
+    <bean id="tea" class="com.demo.Tea"/>
+    <bean id="expressTea" class="com.demo.ExpressTea"/>
+    <bean id="hotDrink" class="com.demo.Tea"/>
+    <bean id="teaRestaurant" class="com.demo.Restaurant">
+        <property name="hotDrink" ref="tea"/>
+    </bean>
+    <bean id="byName" class="com.demo.Restaurant" autowire="byName"/>
+
+    <!--<bean id="byType" class="com.demo.Restaurant" autowire="byType"/>-->
+
+    <!--<bean id="byConstructor" class="com.demo.Restaurant" autowire="constructor">-->
+   <!--<constructor-arg ref="expressRestaurant">-->
+    <!--</bean>-->
+
+
+
+    <bean id="expressRestaurant" class="com.demo.Restaurant">
+        <property name="hotDrink">
+            <bean class="com.demo.ExpressTea"/>
+        </property>
+    </bean>
+<!--Prototype-->
+    <bean id="prototype" class="com.demo.Restaurant" scope="prototype">
+        <property name="hotDrink">
+            <bean class="com.demo.ExpressTea"/>
+        </property>
+    </bean>
+
+    <!--required-->
+<!--<bean id="abc" class="com.demo.Restaurant"/>-->
+
+
+
+    <bean id="complexBean" class="com.demo.Complex">
+        <property name="list">
+            <list>
+                <value>value 1</value>
+                <value>value 2</value>
+                <value>value 3</value>
+                <value>value 4</value>
+                <value>value 2</value>
+            </list>
+        </property>
+
+        <property name="set">
+            <set>
+                <value>value 1</value>
+                <value>value 2</value>
+                <value>value 3</value>
+                <value>value 4</value>
+                <value>value 2</value>
+            </set>
+        </property>
+
+        <property name="map">
+            <map>
+                <entry key="key-1" value="value-1"/>
+                <entry key="key-2" value="value-2"/>
+                <entry key="key-3" value="value-3"/>
+                <entry key="key-4" value="value-4"/>
+                <entry key="key-5" value="value-5"/>
+                <entry key="key-2" value="value-6"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="database" class="com.demo.Database">
+        <property name="name" value="abc"/>
+        <property name="port" value="3306"/>
+    </bean>
+
+</beans>
